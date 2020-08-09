@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoshu.dao.StudentMapper">
+ 	<select id="findAll" parameterType="studentVo" resultType="studentVo">
+ 		SELECT s.*,m.m_name mname FROM stu_tb s,major_tb m WHERE s.m_id=m.m_id
+ 		<if test="sBirth1!=null">
+ 			and  s.s_birth &gt;= #{sBirth1}
+ 		</if>
+ 		<if test="sBirth2!=null">
+ 			and  s.s_birth &lt;= #{sBirth2}
+ 		</if>
+ 	</select>
+ 	<select id="findE" resultType="studentVo">
+ 		SELECT m.m_name mname,COUNT(s.s_id) num FROM major_tb m LEFT JOIN stu_tb s ON s.m_id=m.m_id GROUP BY m.m_id 
+ 	</select>
+</mapper>
